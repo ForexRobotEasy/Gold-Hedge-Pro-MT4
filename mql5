@@ -1,0 +1,136 @@
+mql5
+
+//+------------------------------------------------------------------+
+//|                                               Gold Hedge Pro MT4 |
+//|                                          Developer: forexroboteasy.com      |
+//|                                          Development: Forex Robot Easy Team|
+//+------------------------------------------------------------------+
+
+// Global variables
+double tradingChannel;
+double multiplier;
+double takeProfit;
+double stopLoss;
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Set default values
+   tradingChannel = 100;
+   multiplier = 1.5;
+   takeProfit = 50;
+   stopLoss = 100;
+   
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Perform necessary cleanup tasks
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Check if current price is within the trading channel
+   if(IsPriceWithinTradingChannel(Symbol(), tradingChannel))
+   {
+      // Open a trade with appropriate lot size
+      double lotSize = CalculateLotSize();
+      int ticket = OpenTrade(lotSize);
+      
+      // Set take profit and stop loss levels for the trade
+      SetTakeProfit(ticket, takeProfit);
+      SetStopLoss(ticket, stopLoss);
+   }
+   
+   // Check if market has moved against the open position
+   if(IsMarketMovedAgainstOpenPosition())
+   {
+      // Hedge the position with an opposing trade
+      double opposingLotSize = CalculateOpposingLotSize();
+      int opposingTicket = OpenOpposingTrade(opposingLotSize);
+      
+      // Set take profit and stop loss levels for the opposing trade
+      SetTakeProfit(opposingTicket, takeProfit);
+      SetStopLoss(opposingTicket, stopLoss);
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Function to check if price is within the trading channel          |
+//+------------------------------------------------------------------+
+bool IsPriceWithinTradingChannel(string symbol, double channel)
+{
+   // Implement the logic to check if price is within the trading channel
+   return true;
+}
+
+//+------------------------------------------------------------------+
+//| Function to calculate appropriate lot size                        |
+//+------------------------------------------------------------------+
+double CalculateLotSize()
+{
+   // Implement the logic to calculate appropriate lot size
+   return 0.1;
+}
+
+//+------------------------------------------------------------------+
+//| Function to open a trade                                          |
+//+------------------------------------------------------------------+
+int OpenTrade(double lotSize)
+{
+   // Implement the logic to open a trade with the specified lot size
+   return 0;
+}
+
+//+------------------------------------------------------------------+
+//| Function to set take profit level for a trade                     |
+//+------------------------------------------------------------------+
+void SetTakeProfit(int ticket, double level)
+{
+   // Implement the logic to set the take profit level for a trade
+}
+
+//+------------------------------------------------------------------+
+//| Function to set stop loss level for a trade                       |
+//+------------------------------------------------------------------+
+void SetStopLoss(int ticket, double level)
+{
+   // Implement the logic to set the stop loss level for a trade
+}
+
+//+------------------------------------------------------------------+
+//| Function to check if market has moved against open position       |
+//+------------------------------------------------------------------+
+bool IsMarketMovedAgainstOpenPosition()
+{
+   // Implement the logic to check if market has moved against open position
+   return false;
+}
+
+//+------------------------------------------------------------------+
+//| Function to calculate opposing lot size                           |
+//+------------------------------------------------------------------+
+double CalculateOpposingLotSize()
+{
+   // Implement the logic to calculate the opposing lot size
+   return 0.2;
+}
+
+//+------------------------------------------------------------------+
+//| Function to open an opposing trade                                |
+//+------------------------------------------------------------------+
+int OpenOpposingTrade(double lotSize)
+{
+   // Implement the logic to open an opposing trade with the specified lot size
+   return 0;
+}
+
